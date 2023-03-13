@@ -8,8 +8,20 @@ namespace Task_3_1.Tests
         [Test]
         public void UserRepositoryMustReturnAllUsers()
         {
-            var mockUsers = new Mock<IUserRepository>;
-            mockUsers.Setup(u => u.FindAll()).Returns();
+            List<User> users = new List<User>()
+            { 
+                new User() { Name = "Антон" },
+                new User() { Name = "Иван" },
+                new User() { Name = "Алексей" }
+            };
+
+            Mock<IUserRepository> mock = new Mock<IUserRepository>();
+            mock.Setup(u => u.FindAll()).Returns(users);
+
+            Assert.That(mock.Object.FindAll().Any(u => u.Name == "Антон"));
+            Assert.That(mock.Object.FindAll().Any(u => u.Name == "Иван"));
+            Assert.That(mock.Object.FindAll().Any(u => u.Name == "Алексей"));
+
         }
     }
 }
